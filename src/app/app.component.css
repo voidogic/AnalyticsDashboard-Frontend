@@ -1,0 +1,16 @@
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  color: #666;
+  font-size: 18px;
+}
