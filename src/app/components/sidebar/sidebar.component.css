@@ -1,0 +1,224 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: var(--surface, #1e293b);
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  transition: width 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sidebar.collapsed .sidebar-header h2 {
+  display: none;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-btn:hover {
+  transform: scale(1.1);
+}
+
+.sidebar-menu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+  gap: 15px;
+}
+
+/* Override global link coloring inside sidebar (global styles set a/a* to primary with !important) */
+.sidebar .menu-item,
+.sidebar .menu-item * {
+  color: rgba(255, 255, 255, 0.88) !important;
+  text-decoration: none !important;
+}
+
+.sidebar .menu-item:hover,
+.sidebar .menu-item:hover * {
+  color: white !important;
+}
+
+.sidebar .menu-item.active,
+.sidebar .menu-item.active * {
+  color: white !important;
+}
+
+.sidebar .menu-item .icon {
+  opacity: 0.95;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-left-color: white;
+}
+
+.menu-item.active {
+  background-color: var(--primary, #0d9488);
+  color: white;
+  border-left-color: var(--primary-muted, #5eead4);
+}
+
+.menu-item .icon {
+  font-size: 20px;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-item .label {
+  white-space: nowrap;
+}
+
+.sidebar.collapsed .menu-item .label {
+  display: none;
+}
+
+.sidebar.collapsed .menu-item {
+  justify-content: center;
+  padding: 15px;
+}
+
+/* Admin Section */
+.admin-section {
+  margin-top: 10px;
+}
+
+.section-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 10px 20px;
+}
+
+.section-title {
+  display: block;
+  padding: 10px 20px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.sidebar.collapsed .section-title,
+.sidebar.collapsed .section-divider {
+  display: none;
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.user-role {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.sidebar.collapsed .user-info {
+  display: none;
+}
+
+.logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
+  padding: 12px 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: var(--danger, #dc2626);
+  border-color: var(--danger, #dc2626);
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
+}
+
+.sidebar.collapsed .logout-btn .label {
+  display: none;
+}
+
+.sidebar.collapsed .logout-btn {
+  padding: 12px;
+}
+
+/* Scrollbar styling */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

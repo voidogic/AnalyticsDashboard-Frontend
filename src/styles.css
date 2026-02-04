@@ -7,11 +7,168 @@
 
 html, body {
   height: 100%;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #fafafa;
+  background: var(--bg-page);
+  min-height: 100vh;
+}
+
+/* Slate + Teal theme - solid colors only, no gradients */
+:root {
+  --primary: #0d9488;
+  --primary-hover: #0f766e;
+  --primary-muted: #5eead4;
+  --surface: #1e293b;
+  --surface-light: #334155;
+  --bg: #ffffff;
+  --bg-page: #f1f5f9;
+  --fg: #0f172a;
+  --fg-muted: #475569;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+}
+
+/* Theme base - solid colors only */
+html, body, .main-content, header, footer, .page-header, .modal-content {
+  background: var(--bg) !important;
+  color: var(--fg) !important;
+}
+.app-wrapper {
+  background: var(--bg-page) !important;
+}
+
+/* Links and icons */
+a, a * {
+  color: var(--primary) !important;
+  text-decoration: none;
+  transition: color 0.2s ease !important;
+}
+svg, .icon {
+  color: var(--fg-muted) !important;
+  fill: var(--fg-muted) !important;
+  transition: color 0.2s ease !important;
+}
+a:hover, a *:hover {
+  color: var(--primary-hover) !important;
+  text-decoration: underline;
+}
+
+/* Buttons - solid colors */
+button, .btn {
+  background: var(--primary) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 20px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12) !important;
+}
+button:hover, .btn:hover {
+  background: var(--primary-hover) !important;
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25) !important;
+}
+button:active, .btn:active {
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.15) !important;
+}
+
+/* Input fields - modern styling */
+input, textarea, select { 
+  background: var(--bg) !important; 
+  color: var(--fg) !important; 
+  border: 2px solid var(--gray-200) !important;
+  border-radius: 6px !important;
+  padding: 10px 12px !important;
+  font-size: 14px !important;
+  transition: all 0.3s ease !important;
+}
+input:hover, textarea:hover, select:hover { 
+  border-color: var(--gray-300) !important;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15) !important;
+  outline: none !important;
+}
+
+/* Tables */
+.users-table thead {
+  background: var(--surface) !important;
+  color: white !important;
+}
+.users-table tbody tr { 
+  border-color: var(--gray-200) !important;
+  transition: background-color 0.2s ease !important;
+}
+.users-table tbody tr:hover { 
+  background: var(--gray-50) !important;
+}
+
+/* Badges */
+.role-badge, .status-badge {
+  border: none !important;
+  padding: 6px 12px !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+}
+.role-badge {
+  background: var(--surface) !important;
+  color: white !important;
+}
+.status-badge {
+  background: var(--primary) !important;
+  color: white !important;
+}
+.status-active {
+  background: var(--success) !important;
+  color: white !important;
+}
+.status-inactive {
+  background: var(--danger) !important;
+  color: white !important;
+}
+
+/* Sidebar - solid colors only */
+.sidebar { 
+  background: var(--surface) !important;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08) !important;
+}
+.sidebar .menu-item { 
+  color: rgba(255, 255, 255, 0.85) !important;
+  transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+.menu-item.active { 
+  background: var(--primary) !important;
+  color: white !important;
+  border-radius: 0 8px 8px 0 !important;
+  padding-left: 20px !important;
+}
+
+/* Focus outlines */
+:focus-visible {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+/* Modal styling */
+.modal, .modal-content { 
+  background: var(--bg) !important; 
+  color: var(--fg) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
 }

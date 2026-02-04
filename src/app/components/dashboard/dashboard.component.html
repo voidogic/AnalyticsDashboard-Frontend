@@ -1,0 +1,96 @@
+<div class="dashboard-container">
+  <!-- Header Section -->
+  <header class="dashboard-header">
+    <h1>Dashboard</h1>
+    <p class="subtitle">Welcome back! Here's your business analytics at a glance.</p>
+  </header>
+
+  <!-- Stats Cards Grid -->
+  <section class="stats-grid" aria-label="Key metrics">
+    <article class="stat-card" *ngFor="let stat of stats" [style.border-left-color]="stat.color" role="region" [attr.aria-label]="stat.title">
+      <div class="stat-icon" aria-hidden="true">{{ stat.icon }}</div>
+      <div class="stat-content">
+        <h3 class="stat-title">{{ stat.title }}</h3>
+        <p class="stat-value">{{ stat.value }}</p>
+        <span class="stat-trend"> {{ stat.trend }}</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- Charts Section -->
+  <section class="charts-grid" aria-label="Analytics charts">
+    <!-- Revenue Line Chart -->
+    <article class="chart-card">
+      <header class="card-header">
+        <h2>Revenue Trend</h2>
+        <span class="period">Last 12 Months</span>
+      </header>
+      <div class="chart-wrapper" role="img" aria-label="Monthly revenue trend">
+        <canvas #revenueChart></canvas>
+      </div>
+    </article>
+
+    <!-- Signups Bar Chart -->
+    <article class="chart-card">
+      <header class="card-header">
+        <h2>New Signups</h2>
+        <span class="period">By Date</span>
+      </header>
+      <div class="chart-wrapper" role="img" aria-label="New user signups by date">
+        <canvas #signupsChart></canvas>
+      </div>
+    </article>
+
+    <!-- Product Sales Doughnut -->
+    <article class="chart-card">
+      <header class="card-header">
+        <h2>Sales by Product</h2>
+        <span class="period">Revenue Distribution</span>
+      </header>
+      <div class="chart-wrapper" role="img" aria-label="Revenue distribution by product">
+        <canvas #productChart></canvas>
+      </div>
+    </article>
+
+    <!-- Order Status Radar -->
+    <article class="chart-card">
+      <header class="card-header">
+        <h2>Order Status Overview</h2>
+        <span class="period">All Time</span>
+      </header>
+      <div class="chart-wrapper" role="img" aria-label="Order status overview">
+        <canvas #statusChart></canvas>
+      </div>
+    </article>
+  </section>
+
+  <!-- Recent Orders Section -->
+  <section class="recent-orders" aria-label="Recent completed orders">
+    <header class="card-header">
+      <h2>Recent Completed Orders</h2>
+      <a href="#" class="view-all">View All →</a>
+    </header>
+    <div class="table-wrapper">
+      <table class="orders-table" role="table">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Product</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of recentOrders">
+            <td class="order-id" headers="orderid">{{ order.orderId }}</td>
+            <td headers="customer">{{ order.customerName }}</td>
+            <td headers="product">{{ order.product }} (x{{ order.quantity }})</td>
+            <td class="amount" headers="amount">${{ order.amount.toLocaleString() }}</td>
+            <td headers="date">{{ order.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

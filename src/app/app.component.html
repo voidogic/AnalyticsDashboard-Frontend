@@ -1,5 +1,23 @@
-<div class="container">
-  <h1>{{ title }}</h1>
-  <p>Welcome to your MEAN Stack Application!</p>
-  <router-outlet></router-outlet>
+<div class="app-wrapper" [class.with-sidebar]="showSidebar">
+  <!-- Sidebar Navigation -->
+  <app-sidebar *ngIf="showSidebar"></app-sidebar>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Navbar (only shown when authenticated) -->
+    <div class="navbar" *ngIf="(isAuthenticated$ | async) && !isLoginPage()">
+      <div class="navbar-left">
+        <h1 class="navbar-title">{{ title }}</h1>
+      </div>
+      <div class="navbar-right">
+        <div class="user-info" *ngIf="(currentUser$ | async) as user">
+          <span class="user-name">{{ user.fullName }}</span>
+          <span class="user-role">({{ user.role | uppercase }})</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Content -->
+    <router-outlet></router-outlet>
+  </div>
 </div>

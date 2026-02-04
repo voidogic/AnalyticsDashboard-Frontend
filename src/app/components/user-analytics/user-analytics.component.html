@@ -1,0 +1,128 @@
+<div class="user-analytics-container">
+  <!-- Page Header -->
+  <header class="page-header">
+    <div>
+      <h1>My Purchase Analytics</h1>
+      <p class="subtitle">📊 Track your purchase behavior and spending patterns</p>
+    </div>
+  </header>
+
+  <!-- Purchase Summary Cards -->
+  <section class="summary-section" *ngIf="purchaseSummary" aria-label="Purchase summary">
+    <div class="summary-cards">
+      <article class="summary-card">
+        <div class="card-icon">💰</div>
+        <div class="card-content">
+          <h3>Total Spent</h3>
+          <p class="amount">${{ purchaseSummary.totalSpent.toLocaleString() }}</p>
+        </div>
+      </article>
+
+      <article class="summary-card">
+        <div class="card-icon">📦</div>
+        <div class="card-content">
+          <h3>Total Orders</h3>
+          <p class="amount">{{ purchaseSummary.totalOrders }}</p>
+        </div>
+      </article>
+
+      <article class="summary-card">
+        <div class="card-icon">📈</div>
+        <div class="card-content">
+          <h3>Average Order Value</h3>
+          <p class="amount">${{ purchaseSummary.avgOrderValue.toFixed(2) }}</p>
+        </div>
+      </article>
+
+      <article class="summary-card">
+        <div class="card-icon">📅</div>
+        <div class="card-content">
+          <h3>Last Purchase</h3>
+          <p class="amount">{{ purchaseSummary.lastPurchaseDate }}</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Time Period Filter -->
+  <section class="filter-section" aria-label="Time period selection">
+    <div class="filter-buttons">
+      <button 
+        *ngFor="let period of timePeriods"
+        class="period-btn"
+        [class.active]="selectedPeriod === period"
+        (click)="selectedPeriod = period; onPeriodChange()">
+        {{ period.toUpperCase() }}
+      </button>
+    </div>
+  </section>
+
+  <!-- Charts Section -->
+  <section class="charts-grid" aria-label="Purchase analytics charts">
+    <!-- Purchase Trend Chart -->
+    <article class="chart-card">
+      <header class="card-header">
+        <h2>Purchase Trend</h2>
+        <span class="period">{{ getUppercasePeriod() }}</span>
+      </header>
+      <div class="chart-wrapper" role="img" [attr.aria-label]="'Purchase trend over ' + selectedPeriod">
+        <canvas #purchaseChart></canvas>
+      </div>
+    </article>
+
+    <!-- Category Breakdown Chart -->
+    <article class="chart-card">
+      <header class="card-header">
+        <h2>Spending by Category</h2>
+        <span class="period">All Time</span>
+      </header>
+      <div class="chart-wrapper" role="img" aria-label="Spending distribution by product category">
+        <canvas #categoryChart></canvas>
+      </div>
+    </article>
+
+    <!-- Purchase Amount Histogram -->
+    <article class="chart-card">
+      <header class="card-header">
+        <h2>Purchase Amount Distribution</h2>
+        <span class="period">Histogram</span>
+      </header>
+      <div class="chart-wrapper" role="img" aria-label="Distribution of purchase amounts">
+        <canvas #purchaseHistogramChart></canvas>
+      </div>
+    </article>
+  </section>
+
+  <!-- Recent Purchases Table -->
+  <section class="recent-purchases" aria-label="Recent purchase history">
+    <header class="card-header">
+      <h2>Recent Purchases</h2>
+      <span class="purchase-count">{{ userSales.length }} Orders</span>
+    </header>
+    <div class="table-wrapper">
+      <table class="purchases-table" role="table">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sale of userSales.slice(0, 10)">
+            <td class="order-id">{{ sale.orderId }}</td>
+            <td>{{ sale.product }}</td>
+            <td class="quantity">{{ sale.quantity }}</td>
+            <td class="amount">${{ sale.amount.toLocaleString() }}</td>
+            <td>{{ sale.date }}</td>
+          </tr>
+          <tr *ngIf="userSales.length === 0">
+            <td colspan="5" class="no-data">No purchases yet. Start shopping! 🛍️</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

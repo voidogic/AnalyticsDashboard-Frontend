@@ -1,0 +1,171 @@
+<div class="admin-analytics-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Analytics Dashboard</h1>
+      <p class="subtitle">Real-time event analytics and performance metrics</p>
+    </div>
+    <div class="header-controls">
+      <select class="year-selector" [(ngModel)]="selectedYear" (change)="onYearChange()">
+        <option *ngFor="let year of [2025, 2024, 2023, 2022, 2021]" [value]="year">{{ year }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading dashboard data...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage && !isLoading" class="error-alert">
+    <span>⚠️ {{ errorMessage }}</span>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!isLoading && yearlyOverview" class="dashboard-content">
+    
+    <!-- Key Metrics Cards -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-icon">📊</span>
+          <h3>Total Events</h3>
+        </div>
+        <div class="metric-body">
+          <p class="metric-value">{{ yearlyOverview.totalEvents }}</p>
+          <p class="metric-label">in {{ selectedYear }}</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-icon">👥</span>
+          <h3>Registrations</h3>
+        </div>
+        <div class="metric-body">
+          <p class="metric-value">{{ yearlyOverview.totalRegistrations }}</p>
+          <p class="metric-label">unique students</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-icon">✓</span>
+          <h3>Attendance</h3>
+        </div>
+        <div class="metric-body">
+          <p class="metric-value">{{ yearlyOverview.totalAppeared }}</p>
+          <p class="metric-label">attended</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-icon">💰</span>
+          <h3>Total Revenue</h3>
+        </div>
+        <div class="metric-body">
+          <p class="metric-value">₹{{ yearlyOverview.totalRevenue | number:'1.0-0' }}</p>
+          <p class="metric-label">generated</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+      
+      <!-- Yearly Trends Chart -->
+      <div class="chart-container full-width">
+        <h2>Yearly Trends</h2>
+        <div class="chart-wrapper">
+          <canvas #yearlyTrendsCanvas></canvas>
+        </div>
+      </div>
+
+      <!-- Monthly Trends Chart -->
+      <div class="chart-container full-width">
+        <h2>Monthly Performance</h2>
+        <div class="chart-wrapper">
+          <canvas #monthlyTrendsCanvas></canvas>
+        </div>
+      </div>
+
+      <!-- Two Column Row -->
+      <div class="chart-row">
+        <!-- Revenue Per Event -->
+        <div class="chart-container">
+          <h2>Revenue by Event</h2>
+          <div class="chart-wrapper">
+            <canvas #revenuePerEventCanvas></canvas>
+          </div>
+        </div>
+
+        <!-- Participation Ratio -->
+        <div class="chart-container">
+          <h2>Attendance Ratio</h2>
+          <div class="chart-wrapper">
+            <canvas #participationRatioCanvas></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Histogram + Doughnut Row -->
+      <div class="chart-row">
+        <!-- Revenue Histogram -->
+        <div class="chart-container">
+          <h2>Revenue Distribution (Histogram)</h2>
+          <div class="chart-wrapper">
+            <canvas #revenueHistogramCanvas></canvas>
+          </div>
+        </div>
+
+        <!-- Revenue Share Doughnut -->
+        <div class="chart-container">
+          <h2>Revenue Share (Doughnut)</h2>
+          <div class="chart-wrapper">
+            <canvas #revenueShareCanvas></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Comparison -->
+      <div class="chart-container full-width">
+        <h2>Event Comparison</h2>
+        <div class="chart-wrapper">
+          <canvas #eventComparison></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Analytics Table -->
+    <div class="table-section" *ngIf="eventAnalytics.length > 0">
+      <h2>Event Details</h2>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Year</th>
+              <th>Registrations</th>
+              <th>Attended</th>
+              <th>Revenue</th>
+              <th>Participation %</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let event of eventAnalytics.slice(0, 10)">
+              <td><strong>{{ event.name }}</strong></td>
+              <td>{{ event.year }}</td>
+              <td class="number">{{ event.totalRegistrations }}</td>
+              <td class="number">{{ event.totalAttended }}</td>
+              <td class="number">₹{{ event.totalRevenue | number:'1.0-0' }}</td>
+              <td class="number">{{ event.participationRate || 0 | number:'1.0-0' }}%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

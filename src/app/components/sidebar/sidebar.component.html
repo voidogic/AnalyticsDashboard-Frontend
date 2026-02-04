@@ -1,0 +1,77 @@
+<div class="sidebar" [class.collapsed]="!isSidebarOpen">
+  <div class="sidebar-header">
+    <h2>SmartWinnrr</h2>
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <span>☰</span>
+    </button>
+  </div>
+
+  <nav class="sidebar-menu">
+    <a
+      class="menu-item"
+      [routerLink]="(isAdmin$ | async) ? '/admin/dashboard' : '/dashboard'"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <span class="icon"></span>
+      <span class="label">Dashboard</span>
+    </a>
+
+    <a class="menu-item" routerLink="/orders" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="icon"></span>
+      <span class="label">Orders</span>
+    </a>
+
+    <a class="menu-item" routerLink="/purchase" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="icon"></span>
+      <span class="label">Purchase</span>
+    </a>
+
+    <a class="menu-item" routerLink="/my-account" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="icon"></span>
+      <span class="label">My Account</span>
+    </a>
+
+    <a class="menu-item" routerLink="/settings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="icon"></span>
+      <span class="label">Settings</span>
+    </a>
+
+    <a class="menu-item" routerLink="/help" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="icon"></span>
+      <span class="label">Get Help</span>
+    </a>
+
+    <a class="menu-item" routerLink="/analytics" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="icon"></span>
+      <span class="label">My Analytics</span>
+    </a>
+
+    <!-- Admin-only menu items -->
+    <div class="admin-section" *ngIf="(isAdmin$ | async)">
+      <div class="section-divider"></div>
+      <span class="section-title">Admin Controls</span>
+      
+      <a class="menu-item" routerLink="/admin-users" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="icon">👥</span>
+        <span class="label">Manage Users</span>
+      </a>
+
+      <a class="menu-item" routerLink="/admin-analytics" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="icon"></span>
+        <span class="label">Analytics</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-info" *ngIf="(currentUser$ | async) as user">
+      <span class="user-name">{{ user.fullName }}</span>
+      <span class="user-role">{{ user.role | uppercase }}</span>
+    </div>
+    <button class="logout-btn" (click)="logout()">
+      <span class="icon"></span>
+      <span class="label">Logout</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+.page-container {
+  padding: 30px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.page-container h1 {
+  font-size: 32px;
+  color: #333;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+}
+
+.page-container p {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
